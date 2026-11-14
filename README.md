@@ -8,9 +8,12 @@ Real x402 verification flow integrated with NEAR (via `@x402/express`, `@fastnea
 2. `cp .env.example .env`
 3. Edit `.env`:
    - set `PAY_TO` (NEAR testnet account, e.g. `bengana.testnet`)
-   - set `FACILITATOR_URL` to a NEAR-capable x402 facilitator (e.g. `https://test.x402.mikedotexe.com`) for real verification/settlement
-   - optionally set `FACILITATOR_API_KEY` if your facilitator requires it for `/verify` and `/settle`
+   - for local demo, keep `FACILITATOR_URL=http://localhost:4000` and run the local facilitator (see below)
+   - for a hosted facilitator, set `FACILITATOR_URL` to its URL and optionally `FACILITATOR_API_KEY` if required for `/verify` and `/settle`
 4. `node server.js`
+
+## Local Facilitator (for demo)
+For this hackathon demo we run our own x402 facilitator locally (`facilitator.js`) because many hosted facilitators require an API key. The local facilitator exposes `/verify`, `/settle`, and `/supported`, uses a NEAR testnet relayer account from env to sponsor/submit settlement transactions, and points to `https://rpc.testnet.fastnear.com` on `near:testnet`. In production, this would typically be a hosted/shared facilitator service with managed keys, monitoring, and access controls; running it locally is a standard hackathon/demo setup. No private keys are hardcoded.
 
 ## How to test
 - Without payment (should return HTTP 402 with payment requirements):
