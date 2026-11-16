@@ -1,16 +1,33 @@
 require('dotenv').config();
-const { createNearPaymentFetch } = require('@fastnear/x402');
-const { createLocalNearSigner } = require('@fastnear/x402/node');
+const { buyDataset } = require('./buyer-sdk');
 
 async function main() {
-  const signer = createLocalNearSigner({
-    accountId: process.env.NEAR_PAYER_ACCOUNT_ID,
-    secretKey: process.env.NEAR_PAYER_SECRET_KEY,
-    rpcUrls: { 'near:testnet': 'https://rpc.testnet.fastnear.com' }
+  const arg = process.argv[2];
+  const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+
+  // Backward compatible: no arg buys the original protected endpoint.
+  // With a dataset id arg: buys /dataset/<id>.
+  const url = arg
+    ? (arg.startsWith('http://') || arg.startsWith('https://') ? arg : `${baseUrl}/dataset/${arg}`)
+    : `${baseUrl}/paid-dataset`;
+
+  const data = await buyDataset(url, {
+    buyerAccount: process.env.NEAR_PAYER_ACCOUNT_ID,
+    buyerSecretKey: process.env.NEAR_PAYER_SECRET_KEY,
   });
-  const paidFetch = createNearPaymentFetch({ signer, network: 'near:testnet' });
-  const res = await paidFetch('http://localhost:3000/paid-dataset');
-  console.log('STATUS:', res.status);
-  console.log(await res.text());
+
+  console.log('STATUS: 200');
+  if (typeof data === 'string') {
+    console.log(data);
+  } else {
+    console.log(JSON.stringify(data, null, 2));
+  }
 }
-main();
+
+main().catch((err) => {
+  console.error('Purchase failed:', err && err.message ? err.message : err);
+  if (err && err.data) {
+    console.error(typeof err.data === 'string' ? err.data : JSON.stringify(err.data, null, 2));
+  }
+  process.exit(1);
+});

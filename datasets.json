@@ -1,0 +1,29 @@
+[
+  {
+    "id": "db8687ae",
+    "title": "Kampala Weather Live",
+    "description": "Live weather for Kampala",
+    "priceUSDC": "0.02",
+    "sellerAccount": "bengana.testnet",
+    "data": "Kampala weather: 24C, light rain, humidity 78%",
+    "createdAt": "2026-11-16T00:38:54.132Z"
+  },
+  {
+    "id": "solana-price",
+    "title": "Solana Price Data",
+    "priceUSDC": "0.01",
+    "sellerAccount": "bengana.testnet",
+    "data": "SECRET_DATASET_CONTENT: Solana price data sample - 123.45",
+    "description": "Solana price data sample",
+    "createdAt": "2026-11-16T00:00:00.000Z"
+  },
+  {
+    "id": "btc-price",
+    "title": "Bitcoin Price Feed",
+    "priceUSDC": "0.01",
+    "sellerAccount": "bengana.testnet",
+    "data": "BTC price sample: 97400",
+    "description": "Bitcoin price feed sample",
+    "createdAt": "2026-11-16T00:00:00.000Z"
+  }
+]

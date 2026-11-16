@@ -79,6 +79,36 @@ node pay-test.js
 - `@fastnear/x402` (with `@x402/express`, `@x402/core`, `@x402/near`)
 - NEAR Intents concept (buyer on any chain, seller on NEAR)
 
+## For Sellers - Publish in 2 mins
+Publish a dataset with one API call (returns a protected buy URL):
+
+```bash
+curl -X POST http://localhost:3000/api/publish \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "NEAR Gas Price Snapshot",
+    "description": "Sample premium dataset",
+    "priceUSDC": "0.01",
+    "sellerAccount": "bengana.testnet",
+    "data": { "gas_tgas": 7.2, "timestamp": "2026-11-16T00:00:00Z" }
+  }'
+```
+
+Then share the returned `url` (e.g. `/dataset/<id>`). Buyers pay via x402 and you get paid on NEAR.
+
+## For Buyers - 3 lines
+Buy any dataset programmatically with the Buyer SDK:
+
+```js
+const { buyDataset } = require('./buyer-sdk');
+const data = await buyDataset('http://localhost:3000/dataset/<id>', { buyerAccount, buyerSecretKey });
+console.log(data);
+```
+
+## Business Model
+- **Hackathon:** Platform fee is **0%**.
+- **Mainnet (planned):** **2%** platform fee split (seller receives the remainder).
+
 ## 6. Track
 - **Track:** Agent Economy
 - **NEAR account for payout:** `bengana.testnet`
