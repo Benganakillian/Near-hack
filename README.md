@@ -1,5 +1,10 @@
 # NEAR x402 Paywall - Agent Economy
 
+> **Note for Hackathon Judges:**
+> * `v1-hackathon-submission` = Code as submitted before the deadline.
+> * `main` = Continued development after submission.
+
+
 ## 🎥 Demo Video
 Watch the full real payment flow (402 -> Paid -> STATUS 200):  
 <a href="https://youtu.be/RdRx6W043y4" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
